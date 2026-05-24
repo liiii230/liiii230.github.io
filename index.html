@@ -11,25 +11,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ==================== 东方禅意风格 ==================== */
+        /* ==================== 极简诗意风格 ==================== */
         :root {
-            --bg-primary: #F8F6F3;
-            --bg-secondary: #F2EFEA;
-            --bg-tertiary: #EBE7E1;
-            --accent: #2D5016;
-            --accent-mid: #4A6B2E;
-            --accent-soft: #6B8F5A;
-            --accent-muted: #8FA87E;
-            --accent-light: rgba(45, 80, 22, 0.08);
-            --accent-hover: #1E3A0F;
-            --text-primary: #1C1C1C;
+            --bg-primary: #F5F3EF;
+            --bg-secondary: #EDEAE4;
+            --bg-tertiary: #E5E2DC;
+            --accent: #5D2E7E;
+            --accent-mid: #7A4A9E;
+            --accent-soft: #9B6DB8;
+            --accent-muted: #B894CF;
+            --accent-light: rgba(93, 46, 126, 0.08);
+            --accent-hover: #4A1F66;
+            --text-primary: #1A1A1A;
             --text-secondary: #4A4A4A;
-            --text-tertiary: #6A6A6A;
-            --text-muted: #8A8A7E;
-            --text-light: #B0AEAA;
+            --text-tertiary: #7A7A7A;
+            --text-muted: #A8A5A0;
+            --text-light: #C5C2BD;
             --border: rgba(0,0,0,0.06);
             --border-light: rgba(0,0,0,0.04);
-            --border-accent: rgba(45,80,22,0.12);
+            --border-accent: rgba(93,46,126,0.12);
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
             --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
             --shadow-lg: 0 8px 40px rgba(0,0,0,0.08);
@@ -53,7 +53,7 @@
             content: '';
             position: fixed;
             inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.012'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 0;
         }
@@ -77,13 +77,13 @@
         /* ===== 粒子背景 ===== */
         .particle-canvas {
             position: fixed; inset: 0;
-            pointer-events: none; z-index: 0; opacity: 0.25;
+            pointer-events: none; z-index: 0; opacity: 0.08;
         }
         /* ===== 导航栏 ===== */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%;
             z-index: 1000;
-            background: rgba(248, 246, 243, 0.92);
+            background: rgba(245, 243, 239, 0.92);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid transparent;
@@ -218,12 +218,12 @@
         }
         .btn-primary {
             background: var(--accent); color: white;
-            box-shadow: 0 4px 15px rgba(45,80,22,0.2);
+            box-shadow: 0 4px 15px rgba(93,46,126,0.2);
         }
         .btn-primary:hover {
             background: var(--accent-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(45,80,22,0.3);
+            box-shadow: 0 6px 20px rgba(93,46,126,0.3);
         }
         .btn-secondary {
             background: var(--bg-secondary); color: var(--text-primary);
@@ -858,7 +858,7 @@
                 top: 70px;
                 left: 0;
                 width: 100%;
-                background: rgba(248, 246, 243, 0.98);
+                background: rgba(245, 243, 239, 0.98);
                 flex-direction: column;
                 padding: 20px;
                 gap: 16px;
