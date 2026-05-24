@@ -154,82 +154,96 @@
             align-items: center; justify-content: center;
             z-index: 9999;
             transition: opacity 0.6s ease, visibility 0.6s ease;
-            gap: 24px;
+            gap: 20px;
         }
         .loader.hidden { opacity: 0; visibility: hidden; }
         /* 手绘涂鸦风进度条 */
         .loader-progress-wrap {
-            width: 200px;
+            width: 220px;
             display: flex; flex-direction: column;
-            align-items: center; gap: 12px;
+            align-items: center; gap: 16px;
         }
         .loader-title {
             font-family: 'Caveat', cursive;
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             color: var(--accent);
-            letter-spacing: 2px;
-            opacity: 0.8;
+            letter-spacing: 3px;
+            opacity: 0.85;
+            transform: rotate(-2deg);
         }
         .progress-bar-sketch {
             width: 100%;
-            height: 6px;
-            background: var(--border-light);
-            border-radius: 3px;
+            height: 8px;
             position: relative;
             overflow: visible;
         }
+        /* 手绘波浪底边 - 用SVG实现不规则线条 */
         .progress-bar-sketch::before {
             content: '';
             position: absolute;
-            top: -1px; left: -1px;
-            width: calc(100% + 2px);
-            height: calc(100% + 2px);
-            border: 1.5px dashed var(--accent-muted);
-            border-radius: 4px;
-            opacity: 0.5;
+            top: -3px; left: -4px;
+            width: calc(100% + 8px);
+            height: calc(100% + 6px);
+            border: none;
+            border-radius: 0;
+            /* 手绘不规则边框 */
+            background: url("data:image/svg+xml,%3Csvg width='230' height='18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 9 Q8 2 16 9 Q24 16 32 9 Q40 2 48 9 Q56 16 64 9 Q72 2 80 9 Q88 16 96 9 Q104 2 112 9 Q120 16 128 9 Q136 2 144 9 Q152 16 160 9 Q168 2 176 9 Q184 16 192 9 Q200 2 208 9 Q216 16 224 9' stroke='%238A9A7B' stroke-width='1.5' fill='none' stroke-linecap='round' opacity='0.35'/%3E%3C/svg%3E") no-repeat center;
+            background-size: 100% 100%;
         }
         .progress-bar-fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--accent), var(--terracotta));
-            border-radius: 3px;
-            transition: width 0.3s ease;
             position: relative;
+            border-radius: 0;
+            /* 手绘填充条 - 不规则边缘 */
+            background: url("data:image/svg+xml,%3Csvg width='220' height='8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 4 Q3 1 6 4 Q9 7 12 4 Q15 1 18 4 Q21 7 24 4 Q27 1 30 4 Q33 7 36 4 Q39 1 42 4 Q45 7 48 4 Q51 1 54 4 Q57 7 60 4 Q63 1 66 4 Q69 7 72 4 Q75 1 78 4 Q81 7 84 4 Q87 1 90 4 Q93 7 96 4 Q99 1 102 4 Q105 7 108 4 Q111 1 114 4 Q117 7 120 4 Q123 1 126 4 Q129 7 132 4 Q135 1 138 4 Q141 7 144 4 Q147 1 150 4 Q153 7 156 4 Q159 1 162 4 Q165 7 168 4 Q171 1 174 4 Q177 7 180 4 Q183 1 186 4 Q189 7 192 4 Q195 1 198 4 Q201 7 204 4 Q207 1 210 4 Q213 7 216 4 Q219 1 220 4' fill='%238A9A7B'/%3E%3C/svg%3E") no-repeat left center;
+            background-size: 220px 8px;
+            transition: width 0.3s ease;
         }
+        /* 手绘圆点指示器 */
         .progress-bar-fill::after {
             content: '';
             position: absolute;
-            right: -3px; top: -4px;
-            width: 14px; height: 14px;
+            right: -6px; top: -5px;
+            width: 18px; height: 18px;
             background: var(--accent);
-            border-radius: 50%;
-            border: 2px solid var(--bg-primary);
-            box-shadow: 0 0 8px rgba(138, 154, 123, 0.4);
+            border-radius: 50% 45% 55% 48%;
+            border: 2.5px solid var(--bg-primary);
+            box-shadow: 0 0 10px rgba(138, 154, 123, 0.4);
+            transform: rotate(15deg);
         }
         .progress-percent {
             font-family: 'Caveat', cursive;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--text-muted);
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            transform: rotate(1deg);
         }
         /* 手绘装饰小元素 */
         .loader-doodles {
             position: absolute;
             inset: 0;
             pointer-events: none;
-            opacity: 0.15;
+            opacity: 0.12;
         }
         .loader-doodles span {
             position: absolute;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: var(--accent);
+            animation: doodleFloat 3s ease-in-out infinite;
         }
-        .loader-doodles span:nth-child(1) { top: 25%; left: 15%; transform: rotate(-15deg); }
-        .loader-doodles span:nth-child(2) { top: 30%; right: 18%; transform: rotate(20deg); }
-        .loader-doodles span:nth-child(3) { bottom: 30%; left: 20%; transform: rotate(10deg); }
-        .loader-doodles span:nth-child(4) { bottom: 25%; right: 15%; transform: rotate(-25deg); }
-        .loader-doodles span:nth-child(5) { top: 50%; left: 10%; transform: rotate(5deg); }
-        .loader-doodles span:nth-child(6) { top: 45%; right: 12%; transform: rotate(-10deg); }
+        .loader-doodles span:nth-child(1) { top: 22%; left: 12%; transform: rotate(-15deg); animation-delay: 0s; }
+        .loader-doodles span:nth-child(2) { top: 28%; right: 14%; transform: rotate(20deg); animation-delay: 0.5s; }
+        .loader-doodles span:nth-child(3) { bottom: 28%; left: 16%; transform: rotate(10deg); animation-delay: 1s; }
+        .loader-doodles span:nth-child(4) { bottom: 22%; right: 12%; transform: rotate(-25deg); animation-delay: 1.5s; }
+        .loader-doodles span:nth-child(5) { top: 48%; left: 8%; transform: rotate(5deg); animation-delay: 0.8s; }
+        .loader-doodles span:nth-child(6) { top: 42%; right: 10%; transform: rotate(-10deg); animation-delay: 1.2s; }
+        .loader-doodles span:nth-child(7) { top: 18%; left: 45%; transform: rotate(30deg); animation-delay: 0.3s; }
+        .loader-doodles span:nth-child(8) { bottom: 18%; right: 40%; transform: rotate(-8deg); animation-delay: 1.8s; }
+        @keyframes doodleFloat {
+            0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+            50% { transform: translateY(-6px) rotate(var(--r, 0deg)); }
+        }
 
         /* ===== 粒子背景 ===== */
         .particle-canvas {
@@ -1270,7 +1284,7 @@
     <!-- 加载动画 -->
     <div id="loader" class="loader">
         <div class="loader-doodles">
-            <span>✦</span><span>◇</span><span>○</span><span>✧</span><span>△</span><span>☆</span>
+            <span>✦</span><span>◇</span><span>○</span><span>✧</span><span>△</span><span>☆</span><span>~</span><span>✿</span>
         </div>
         <div class="loader-progress-wrap">
             <div class="loader-title">Loading...</div>
