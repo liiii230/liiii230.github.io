@@ -136,6 +136,16 @@
             text-align: center;
             padding: 120px 24px 80px;
             position: relative;
+            background-image: url('hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: rgba(248, 246, 243, 0.75);
+            z-index: 0;
         }
         .hero-content { max-width: 800px; z-index: 1; }
         .hero-avatar {
@@ -152,6 +162,96 @@
             object-position: center;
             border: 3px solid var(--bg-primary);
             box-shadow: var(--shadow-md);
+        }
+        /* ===== Y2K Browser Window ===== */
+        .y2k-browser {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 520px;
+            max-width: 90vw;
+            background: rgba(255,255,255,0.12);
+            border: 2px solid rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .y2k-browser-bar {
+            height: 32px;
+            background: rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 6px;
+        }
+        .y2k-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        .y2k-dot:nth-child(1) { background: #ff5f57; }
+        .y2k-dot:nth-child(2) { background: #ffbd2e; }
+        .y2k-dot:nth-child(3) { background: #28c840; }
+        .y2k-browser-url {
+            flex: 1;
+            height: 18px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        .y2k-browser-body {
+            padding: 20px;
+            min-height: 300px;
+        }
+        /* Y2K side icons */
+        .y2k-icons {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.25;
+        }
+        .y2k-icon {
+            width: 36px; height: 36px;
+            border: 1.5px solid rgba(0,0,0,0.15);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.3);
+        }
+        /* Y2K top banner */
+        .y2k-banner {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 6px 24px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            opacity: 0.6;
+        }
+        @media (max-width: 768px) {
+            .y2k-browser { width: 85vw; }
+            .y2k-icons { display: none; }
+            .y2k-banner { font-size: 0.55rem; padding: 4px 14px; letter-spacing: 2px; }
         }
         .hero-name {
             font-family: var(--font-display);
@@ -938,10 +1038,28 @@
 
     <!-- Hero -->
     <section class="hero">
+        <!-- Y2K装饰元素 -->
+        <div class="y2k-browser">
+            <div class="y2k-browser-bar">
+                <div class="y2k-dot"></div>
+                <div class="y2k-dot"></div>
+                <div class="y2k-dot"></div>
+                <div class="y2k-browser-url"></div>
+            </div>
+            <div class="y2k-browser-body"></div>
+        </div>
+        <div class="y2k-icons">
+            <div class="y2k-icon"><i class="fas fa-desktop"></i></div>
+            <div class="y2k-icon"><i class="fas fa-folder"></i></div>
+            <div class="y2k-icon"><i class="fas fa-globe"></i></div>
+            <div class="y2k-icon"><i class="fas fa-pen-nib"></i></div>
+        </div>
+        <div class="y2k-banner">✦ welcome to my portfolio ✦</div>
+
         <div class="hero-content">
             <div class="hero-avatar">
                 <div class="avatar-glow"></div>
-                <img src="个人头像.jpg" alt="李米朵" class="avatar-img">
+                <img src="hero-avatar.jpg" alt="李米朵" class="avatar-img">
             </div>
             <h1 class="hero-name">李米朵</h1>
             <div class="hero-title">
