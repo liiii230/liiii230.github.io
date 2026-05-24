@@ -147,22 +147,89 @@
         }
 
         /* ===== 加载动画 ===== */
-        .loader {
-            position: fixed; inset: 0;
-            background: var(--bg-primary);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s, visibility 0.5s;
-        }
-        .loader.hidden { opacity: 0; visibility: hidden; }
-        .loader-spinner {
-            width: 36px; height: 36px;
-            border: 2px solid var(--border-accent);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .loader {
+            position: fixed; inset: 0;
+            background: var(--bg-primary);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+            gap: 24px;
+        }
+        .loader.hidden { opacity: 0; visibility: hidden; }
+        /* 手绘涂鸦风进度条 */
+        .loader-progress-wrap {
+            width: 200px;
+            display: flex; flex-direction: column;
+            align-items: center; gap: 12px;
+        }
+        .loader-title {
+            font-family: 'Caveat', cursive;
+            font-size: 1.3rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+        .progress-bar-sketch {
+            width: 100%;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 3px;
+            position: relative;
+            overflow: visible;
+        }
+        .progress-bar-sketch::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px;
+            width: calc(100% + 2px);
+            height: calc(100% + 2px);
+            border: 1.5px dashed var(--accent-muted);
+            border-radius: 4px;
+            opacity: 0.5;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--terracotta));
+            border-radius: 3px;
+            transition: width 0.3s ease;
+            position: relative;
+        }
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            right: -3px; top: -4px;
+            width: 14px; height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 2px solid var(--bg-primary);
+            box-shadow: 0 0 8px rgba(138, 154, 123, 0.4);
+        }
+        .progress-percent {
+            font-family: 'Caveat', cursive;
+            font-size: 1rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+        /* 手绘装饰小元素 */
+        .loader-doodles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+        .loader-doodles span {
+            position: absolute;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        .loader-doodles span:nth-child(1) { top: 25%; left: 15%; transform: rotate(-15deg); }
+        .loader-doodles span:nth-child(2) { top: 30%; right: 18%; transform: rotate(20deg); }
+        .loader-doodles span:nth-child(3) { bottom: 30%; left: 20%; transform: rotate(10deg); }
+        .loader-doodles span:nth-child(4) { bottom: 25%; right: 15%; transform: rotate(-25deg); }
+        .loader-doodles span:nth-child(5) { top: 50%; left: 10%; transform: rotate(5deg); }
+        .loader-doodles span:nth-child(6) { top: 45%; right: 12%; transform: rotate(-10deg); }
 
         /* ===== 粒子背景 ===== */
         .particle-canvas {
@@ -1202,8 +1269,15 @@
 
     <!-- 加载动画 -->
     <div id="loader" class="loader">
-        <div class="loader-content">
-            <div class="loader-spinner"></div>
+        <div class="loader-doodles">
+            <span>✦</span><span>◇</span><span>○</span><span>✧</span><span>△</span><span>☆</span>
+        </div>
+        <div class="loader-progress-wrap">
+            <div class="loader-title">Loading...</div>
+            <div class="progress-bar-sketch">
+                <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-percent" id="progressText">0%</div>
         </div>
     </div>
 
@@ -1833,9 +1907,43 @@
     <!-- ===== JavaScript ===== -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // 隐藏加载动画
+        // 加载进度条动画
         const loader = document.getElementById('loader');
-        setTimeout(() => loader.classList.add('hidden'), 500);
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        let progress = 0;
+
+        function animateProgress() {
+            const target = Math.min(progress + Math.random() * 15 + 5, 95);
+            const step = () => {
+                if (progress < target) {
+                    progress += 1;
+                    progressFill.style.width = progress + '%';
+                    progressText.textContent = Math.round(progress) + '%';
+                    setTimeout(step, 20 + Math.random() * 30);
+                } else if (progress < 95) {
+                    setTimeout(animateProgress, 200 + Math.random() * 300);
+                }
+            };
+            step();
+        }
+        animateProgress();
+
+        // 页面加载完成后，进度条到100%然后隐藏
+        window.addEventListener('load', () => {
+            progress = 100;
+            progressFill.style.width = '100%';
+            progressText.textContent = '100%';
+            setTimeout(() => loader.classList.add('hidden'), 400);
+        });
+
+        // 兜底：最多5秒后强制隐藏
+        setTimeout(() => {
+            progress = 100;
+            progressFill.style.width = '100%';
+            progressText.textContent = '100%';
+            setTimeout(() => loader.classList.add('hidden'), 300);
+        }, 5000);
 
         // 页面加载依次淡入
         const staggerElements = document.querySelectorAll('.hero-content, .section-header, .about-intro, .experience-section, .honors-section, .skills-section, .portfolio-filter, .video-card, .note-card, .honor-item, .footer');
